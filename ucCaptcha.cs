@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using General.Librerias.EntidadesNegocio;  
 
 namespace General.Librerias.CodigoUsuario
@@ -29,7 +30,14 @@ namespace General.Librerias.CodigoUsuario
       Rectangle rec=new Rectangle(0,0,200,8);
       Bitmap bmp =new Bitmap(200,80);
       Grafics grafico = Grafics.FromImage(bmp);
-      grafico
+      LinearGradientBrush degradado= new LinearGradientBrush(rec,Color.Aqua,Color.Blue,LinearGradientMode.BackwardDiagonal);
+      grafico.FillRectangle(degradado,rec)
+      grafico.DrawString(sb.ToString(),new Font("Arial",40),Brush.White,10,10);
+      using(MemoryStream ms = new MemoryStream())
+      {
+        bmp.Save(ms,ImagenFormat.Png);
+        obeCaptcha.Imagen = ms.ToArray();
+      }
       return obeCaptcha;
     }
   }
