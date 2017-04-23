@@ -8,7 +8,8 @@ using Northwind.Librerias.EntidadesNegocio;
 using Northwind.Librerias.ReglasNegocio;
 using Carrito.Filters;
 using General.Librerias.CodigoUsuario;
-
+using General.Librerias.EntidadesNegocio;
+  
 namespace CarritoController:Controller
 {
   public class Controller:Controller
@@ -17,6 +18,13 @@ namespace CarritoController:Controller
     {
       return View();
     }
+    public string CrearCaptcha()
+    {
+      beCaptcha obeCaptcha = ucCaptcha.CrearCaptcha();
+      TemData["Copdigo"]=obeCaptcha.Imagen;
+      return(Convert.ToBase64String(obeCaptcha.Imagen));
+    }
+    
     public string Validar(string usuario,string clave)
     {
     string rpta="";
